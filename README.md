@@ -1,6 +1,6 @@
 # Scottish Delirium Association website
 
-Status: local draft for review. Nothing in this folder has been published or connected to the live domain yet.
+Status: source published in the public GitHub repository `amaclullich/scottishdeliriumassociation.com`. GitHub Pages is enabled from the `main` branch. The custom-domain DNS cutover is pending Squarespace's security verification.
 
 ## Purpose
 
@@ -39,12 +39,12 @@ The files include clinical and medication content. They are presented only as hi
 - Research papers, grant documents, personal presentations and hip-fracture materials found in the old SDA storage folder were not copied because they are not clearly SDA website outputs.
 - The old SDA pathway page on Right Decisions is not presented as current guidance. It says it was last reviewed in October 2018 and was due for another review in February 2025.
 
-## Review and publishing workflow
+## Editing and publishing workflow
 
-1. Preview the site locally and review the wording and download labels.
-2. Ask ChatGPT Work for changes in plain language.
-3. Preview desktop and mobile layouts again.
-4. After approval, create a public GitHub repository, enable GitHub Pages and connect the custom domain.
-5. Change Squarespace DNS only after the temporary GitHub Pages address has been checked.
+1. Ask ChatGPT Work for changes in plain language.
+2. Preview the site locally on desktop and mobile.
+3. Publish the approved files to the `main` branch of the GitHub repository.
+4. GitHub Pages automatically rebuilds the site from the repository root.
+5. Verify the public domain and key downloads after each substantive change.
 
-The locally remembered GitHub username is `amaclullich`, but its saved command-line sign-in was expired when checked on 20 July 2026.
+This local folder is connected to `https://github.com/amaclullich/scottishdeliriumassociation.com`. GitHub command-line authorization was deliberately not granted because the requested permission scope included private repositories; publishing used the existing scoped GitHub connection instead.
