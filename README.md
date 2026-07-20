@@ -1,6 +1,6 @@
 # Scottish Delirium Association website
 
-Status: source published in the public GitHub repository `amaclullich/scottishdeliriumassociation.com`. GitHub Pages is enabled from the `main` branch. The custom-domain DNS cutover was completed on 20 July 2026; GitHub's HTTPS certificate is being issued.
+Status: source published in the public GitHub repository `amaclullich/scottishdeliriumassociation.com`. GitHub Pages is enabled from the `main` branch. The custom-domain DNS cutover was completed on 20 July 2026, and HTTPS is enforced for the canonical domain. GitHub is finalizing certificate coverage for the `www` alias.
 
 ## Purpose
 
