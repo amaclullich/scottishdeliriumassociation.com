@@ -27,6 +27,17 @@
     "knowsAbout": "Delirium"
   }
   </script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+    window.gtag('consent', 'default', {
+      analytics_storage: 'denied',
+      ad_storage: 'denied',
+      ad_user_data: 'denied',
+      ad_personalization: 'denied',
+      wait_for_update: 500
+    });
+  </script>
   <style>
     :root {
       --navy: #20245f;
@@ -69,6 +80,7 @@
     a:hover { color: var(--navy); }
 
     a:focus-visible,
+    button:focus-visible,
     summary:focus-visible {
       outline: 3px solid #f2b94b;
       outline-offset: 4px;
@@ -357,6 +369,99 @@
       font-size: 0.91rem;
     }
 
+    .privacy-card {
+      padding: clamp(1.4rem, 4vw, 2rem);
+      background: var(--blue-wash);
+      border: 1px solid #cbd9f4;
+      border-radius: 0.75rem;
+    }
+
+    .privacy-card p { max-width: 62rem; }
+
+    .privacy-card .privacy-meta {
+      color: var(--muted);
+      font-size: 0.94rem;
+    }
+
+    .choice-button,
+    .consent-button,
+    .footer-button {
+      font: inherit;
+      font-weight: 750;
+      cursor: pointer;
+    }
+
+    .choice-button {
+      display: inline-flex;
+      min-height: 2.7rem;
+      align-items: center;
+      padding: 0.55rem 0.85rem;
+      border: 2px solid var(--blue-dark);
+      border-radius: 0.4rem;
+      background: #fff;
+      color: var(--blue-dark);
+    }
+
+    .choice-button:hover { background: #f7f9ff; color: var(--navy-deep); }
+
+    .consent-panel {
+      position: fixed;
+      z-index: 90;
+      inset: auto 1rem 1rem;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 1rem 1.5rem;
+      align-items: center;
+      width: min(68rem, calc(100% - 2rem));
+      max-height: calc(100vh - 2rem);
+      max-height: calc(100svh - 2rem);
+      margin-inline: auto;
+      padding: 1.1rem 1.2rem;
+      overflow-y: auto;
+      background: var(--navy-deep);
+      border: 2px solid #fff;
+      border-radius: 0.7rem;
+      box-shadow: 0 0.8rem 2.4rem rgba(0, 0, 0, 0.32);
+      color: #fff;
+    }
+
+    .consent-panel[hidden] { display: none; }
+
+    .consent-panel h2 {
+      margin-bottom: 0.25rem;
+      color: #fff;
+      font-family: inherit;
+      font-size: 1.08rem;
+      line-height: 1.35;
+    }
+
+    .consent-panel p {
+      max-width: 52rem;
+      margin: 0;
+      color: #eef4ff;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .consent-panel a { color: #fff; }
+
+    .consent-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.65rem;
+    }
+
+    .consent-button {
+      min-height: 2.75rem;
+      padding: 0.58rem 0.85rem;
+      border: 2px solid #fff;
+      border-radius: 0.4rem;
+      background: #fff;
+      color: var(--navy-deep);
+    }
+
+    .consent-button:hover { background: #e7efff; }
+
     footer {
       padding-block: 2rem;
       background: var(--navy-deep);
@@ -367,12 +472,28 @@
     footer p { max-width: 74rem; margin: 0.3rem 0; }
     footer a { color: #fff; }
 
+    .footer-button {
+      margin: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      color: #fff;
+      text-decoration: underline;
+      text-decoration-thickness: 0.09em;
+      text-underline-offset: 0.18em;
+    }
+
+    .footer-separator { padding-inline: 0.45rem; }
+
     @media (max-width: 720px) {
       .wrap { width: min(100% - 1.5rem, var(--max)); }
       .hero { grid-template-columns: 5.7rem minmax(0, 1fr); gap: 1rem; }
       .featured { grid-template-columns: 1fr; }
       .actions { width: 100%; min-width: 0; }
       .grid, .downloads, .links-list { grid-template-columns: 1fr; }
+      .consent-panel { grid-template-columns: 1fr; }
+      .consent-actions { width: 100%; }
+      .consent-button { flex: 1 1 10rem; }
     }
 
     @media (max-width: 480px) {
@@ -390,7 +511,7 @@
     @media print {
       body { background: #fff; color: #000; }
       .site-header, footer { background: #fff; color: #000; border-color: #000; }
-      .site-header::after, .skip-link { display: none; }
+      .site-header::after, .skip-link, .consent-panel { display: none; }
       h1, .intro, .eyebrow, footer, footer a { color: #000; }
       .featured, .card, .archive-section { box-shadow: none; }
     }
@@ -502,13 +623,161 @@
         </li>
       </ul>
     </section>
+
+    <section id="privacy" class="privacy-card" aria-labelledby="privacy-title">
+      <h2 id="privacy-title">Privacy and analytics</h2>
+      <p>This static archive has no accounts or contact forms. With your permission, it uses Google Analytics 4 to understand how the archive is used, including visits, scrolling, links to external resources and file downloads. The resulting reports are used only in aggregate. Google Analytics is off by default: no Google Analytics script is loaded and no analytics data is sent unless you select <strong>Accept analytics</strong>.</p>
+      <p>If you accept, Google Analytics may set first-party cookies named <code>_ga</code> and <code>_ga_EZFGN38TH8</code>. They are configured to expire after up to one year and may be renewed when you return. Advertising storage, advertising personalisation and Google Signals remain disabled. Your choice is stored in your browser's local storage for six months, after which the site asks again. The Analytics property's event and user data retention setting is 14 months.</p>
+      <p class="privacy-meta">The site is maintained by Alasdair MacLullich. Read <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites that use its services</a>. Privacy questions may be raised through the <a href="https://github.com/amaclullich/scottishdeliriumassociation.com/issues">public website repository</a>; please do not include clinical or other sensitive personal information.</p>
+      <button class="choice-button" type="button" data-analytics-choice aria-controls="analytics-consent">Review or change analytics choice</button>
+    </section>
   </main>
 
   <footer>
     <div class="wrap">
       <p><strong>Scottish Delirium Association archive.</strong> The association is not currently active; this site is maintained as a historical archive and signpost.</p>
-      <p>Page last reviewed: 20 July 2026. This website does not provide medical advice about an individual.</p>
+      <p>Page last reviewed: 21 July 2026. This website does not provide medical advice about an individual.</p>
+      <p><a href="#privacy">Privacy and analytics</a><span class="footer-separator" aria-hidden="true">·</span><button class="footer-button" type="button" data-analytics-choice aria-controls="analytics-consent">Change analytics choice</button></p>
     </div>
   </footer>
+
+  <div id="analytics-consent" class="consent-panel" role="dialog" aria-modal="false" aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-copy" tabindex="-1" hidden>
+    <div>
+      <h2 id="analytics-consent-title">Optional website analytics</h2>
+      <p id="analytics-consent-copy">Google Analytics is off unless you accept. If enabled, it measures visits, scrolling, external resource clicks and file downloads; advertising features remain disabled. <a href="#privacy">Read the privacy details</a>.</p>
+    </div>
+    <div class="consent-actions">
+      <button id="analytics-reject" class="consent-button" type="button">Reject analytics</button>
+      <button id="analytics-accept" class="consent-button" type="button">Accept analytics</button>
+    </div>
+  </div>
+
+  <script>
+    (function () {
+      'use strict';
+
+      var measurementId = 'G-EZFGN38TH8';
+      var consentKey = 'sda_analytics_consent';
+      var consentLifetimeMs = 180 * 24 * 60 * 60 * 1000;
+      var consentPanel = document.getElementById('analytics-consent');
+      var acceptButton = document.getElementById('analytics-accept');
+      var rejectButton = document.getElementById('analytics-reject');
+      var choiceButtons = document.querySelectorAll('[data-analytics-choice]');
+      var lastChoiceButton = null;
+
+      function readChoice() {
+        try {
+          var storedChoice = window.localStorage.getItem(consentKey);
+          if (!storedChoice) return null;
+
+          var parsedChoice = JSON.parse(storedChoice);
+          if (!parsedChoice || !['granted', 'denied'].includes(parsedChoice.value) || !Number.isFinite(parsedChoice.expiresAt) || Date.now() >= parsedChoice.expiresAt) {
+            window.localStorage.removeItem(consentKey);
+            return null;
+          }
+
+          return parsedChoice.value;
+        } catch (error) {
+          try { window.localStorage.removeItem(consentKey); } catch (storageError) { /* No action needed. */ }
+          return null;
+        }
+      }
+
+      function saveChoice(value) {
+        try {
+          window.localStorage.setItem(consentKey, JSON.stringify({
+            value: value,
+            expiresAt: Date.now() + consentLifetimeMs
+          }));
+        } catch (error) {
+          // Analytics still follows the current choice if storage is unavailable.
+        }
+      }
+
+      function showConsentPanel(trigger) {
+        lastChoiceButton = trigger || null;
+        consentPanel.hidden = false;
+        if (trigger) window.requestAnimationFrame(function () { consentPanel.focus(); });
+      }
+
+      function hideConsentPanel() {
+        consentPanel.hidden = true;
+        if (lastChoiceButton) {
+          lastChoiceButton.focus();
+          lastChoiceButton = null;
+        }
+      }
+
+      function loadAnalytics() {
+        if (document.getElementById('google-analytics-script')) return;
+
+        window.gtag('consent', 'update', {
+          analytics_storage: 'granted',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        window.gtag('js', new Date());
+        window.gtag('config', measurementId, {
+          allow_google_signals: false,
+          allow_ad_personalization_signals: false,
+          cookie_expires: 31536000
+        });
+
+        var analyticsScript = document.createElement('script');
+        analyticsScript.id = 'google-analytics-script';
+        analyticsScript.async = true;
+        analyticsScript.src = 'https://www.googletagmanager.com/gtag/js?id=' + encodeURIComponent(measurementId);
+        document.head.appendChild(analyticsScript);
+      }
+
+      function deleteAnalyticsCookies() {
+        var host = window.location.hostname;
+        var parts = host.split('.');
+        var baseDomain = parts.length > 2 ? parts.slice(-2).join('.') : host;
+        var domains = ['', host, '.' + host, baseDomain, '.' + baseDomain];
+
+        document.cookie.split(';').forEach(function (cookie) {
+          var name = cookie.split('=')[0].trim();
+          if (!/^_ga(?:_|$)/.test(name)) return;
+
+          domains.forEach(function (domain) {
+            var domainPart = domain ? '; domain=' + domain : '';
+            document.cookie = name + '=; Max-Age=0; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/' + domainPart + '; SameSite=Lax';
+          });
+        });
+      }
+
+      acceptButton.addEventListener('click', function () {
+        saveChoice('granted');
+        loadAnalytics();
+        hideConsentPanel();
+      });
+
+      rejectButton.addEventListener('click', function () {
+        var analyticsWasLoaded = Boolean(document.getElementById('google-analytics-script'));
+        saveChoice('denied');
+        window.gtag('consent', 'update', {
+          analytics_storage: 'denied',
+          ad_storage: 'denied',
+          ad_user_data: 'denied',
+          ad_personalization: 'denied'
+        });
+        deleteAnalyticsCookies();
+        hideConsentPanel();
+        if (analyticsWasLoaded) window.location.reload();
+      });
+
+      choiceButtons.forEach(function (button) {
+        button.addEventListener('click', function () { showConsentPanel(button); });
+      });
+
+      if (readChoice() === 'granted') {
+        loadAnalytics();
+      } else if (readChoice() !== 'denied') {
+        showConsentPanel();
+      }
+    }());
+  </script>
 </body>
 </html>
