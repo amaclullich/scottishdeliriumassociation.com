@@ -650,8 +650,9 @@
 
     <section id="privacy" class="privacy-card" aria-labelledby="privacy-title">
       <h2 id="privacy-title">Privacy and analytics</h2>
-      <p>This static archive has no accounts or contact forms. With your permission, it uses Google Analytics 4 to understand how the archive is used, including visits, scrolling, links to external resources and file downloads. The resulting reports are used only in aggregate. Google Analytics is off by default: no Google Analytics script is loaded and no analytics data is sent unless you select <strong>Accept analytics</strong>.</p>
-      <p>If you accept, Google Analytics may set first-party cookies named <code>_ga</code> and <code>_ga_EZFGN38TH8</code>. They are configured to expire after up to one year and may be renewed when you return. Advertising storage, advertising personalisation and Google Signals remain disabled. Your choice is stored in your browser's local storage for six months, after which the site asks again. The Analytics property's event and user data retention setting is 14 months.</p>
+      <p>This static archive has no accounts or contact forms. It uses Google Analytics 4, measurement ID G-EZFGN38TH8, only to produce statistical information about how the archive is used and to improve it, including visits, scrolling, links to external resources and file downloads. The resulting reports are used only in aggregate. Limited analytics is on when the page loads unless you have turned it off. If you select <strong>Turn analytics off</strong>, no Google Analytics script is loaded and no analytics data is sent.</p>
+      <p>For storage and access on your device, the site relies on the statistical purposes exception in the Privacy and Electronic Communications Regulations. For any related personal data processing, the lawful basis is the legitimate interest in understanding and improving this free public archive. Turning analytics off is free and does not affect your use of the site.</p>
+      <p>While analytics is on, Google Analytics may set first-party cookies named <code>_ga</code> and <code>_ga_EZFGN38TH8</code>. They are configured to expire after up to one year and may be renewed when you return. Advertising storage, advertising personalisation and Google Signals remain disabled. Your choice is stored in your browser's local storage for six months, after which the site asks again. The Analytics property's event and user data retention setting is 14 months.</p>
       <p class="privacy-meta">The site is maintained by <a href="https://www.alasdairmaclullich.com/">Professor Alasdair MacLullich</a>. Read <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from sites that use its services</a>. Privacy questions may be raised through the <a href="https://github.com/amaclullich/scottishdeliriumassociation.com/issues">public website repository</a>; please do not include clinical or other sensitive personal information.</p>
       <button class="choice-button" type="button" data-analytics-choice aria-controls="analytics-consent">Review or change analytics choice</button>
     </section>
@@ -668,12 +669,12 @@
 
   <div id="analytics-consent" class="consent-panel" role="dialog" aria-modal="false" aria-labelledby="analytics-consent-title" aria-describedby="analytics-consent-copy" tabindex="-1" hidden>
     <div>
-      <h2 id="analytics-consent-title">Optional website analytics</h2>
-      <p id="analytics-consent-copy">Google Analytics is off unless you accept. If enabled, it measures visits, scrolling, external resource clicks and file downloads; advertising features remain disabled. <a href="#privacy">Read the privacy details</a>.</p>
+      <h2 id="analytics-consent-title">Website analytics</h2>
+      <p id="analytics-consent-copy"><span id="analytics-consent-state">Analytics is on.</span> We use limited Google Analytics to produce aggregate statistics and improve this archive. It measures visits, scrolling, external resource clicks and file downloads; advertising features and Google Signals remain disabled. You can turn analytics off now or at any time. <a href="#privacy">Read the privacy details</a>.</p>
     </div>
     <div class="consent-actions">
-      <button id="analytics-reject" class="consent-button" type="button">Reject analytics</button>
-      <button id="analytics-accept" class="consent-button" type="button">Accept analytics</button>
+      <button id="analytics-reject" class="consent-button" type="button">Turn analytics off</button>
+      <button id="analytics-accept" class="consent-button" type="button">Keep analytics on</button>
     </div>
   </div>
 
@@ -720,6 +721,11 @@
       }
 
       function showConsentPanel(trigger) {
+        var isOff = readChoice() === 'denied';
+        var state = document.getElementById('analytics-consent-state');
+        if (state) state.textContent = isOff ? 'Analytics is off.' : 'Analytics is on.';
+        acceptButton.textContent = isOff ? 'Turn analytics on' : 'Keep analytics on';
+        rejectButton.textContent = isOff ? 'Keep analytics off' : 'Turn analytics off';
         lastChoiceButton = trigger || null;
         consentPanel.hidden = false;
         if (trigger) window.requestAnimationFrame(function () { consentPanel.focus(); });
@@ -797,10 +803,13 @@
         button.addEventListener('click', function () { showConsentPanel(button); });
       });
 
-      if (readChoice() === 'granted') {
+      // Limited analytics is on by default under the UK statistical purposes
+      // exception (PECR as amended by the Data (Use and Access) Act 2025).
+      // A saved 'denied' choice is honoured; a first visit shows the notice.
+      var savedChoice = readChoice();
+      if (savedChoice !== 'denied') {
         loadAnalytics();
-      } else if (readChoice() !== 'denied') {
-        showConsentPanel();
+        if (savedChoice !== 'granted') showConsentPanel();
       }
     }());
   </script>
