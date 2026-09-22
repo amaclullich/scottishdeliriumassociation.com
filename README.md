@@ -6,7 +6,7 @@ Status: source published in the public GitHub repository `amaclullich/scottishde
 
 This is a deliberately concise static archive for `scottishdeliriumassociation.com`. It describes the Scottish Delirium Association as active from 2011 to 2020, gives prominence to SIGN 157, links to NICE CG103 and the American Psychiatric Association's 2025 delirium guideline page, and preserves four historical SDA pathway PDFs with explicit safety labelling.
 
-The site has no content-management system or forms. It uses a small amount of JavaScript for optional, consent-aware Google Analytics and is intended for GitHub Pages. It can be edited through verbal instructions to ChatGPT Work.
+The site has no content-management system or forms. It uses a small amount of JavaScript for limited Google Analytics with a free opt-out and is intended for GitHub Pages. It can be edited through verbal instructions to ChatGPT Work.
 
 ## Analytics and privacy
 
@@ -17,9 +17,9 @@ The site uses the existing Scottish Delirium Association GA4 property and web st
 - Measurement ID: `G-EZFGN38TH8`
 - Stream URL: `https://scottishdeliriumassociation.com`
 
-Analytics follows a privacy-first basic-consent model. The Google Analytics script is not requested and no analytics data is sent until the visitor explicitly accepts. Advertising storage, advertising personalisation and Google Signals remain disabled. The stream measures page views, scrolling, outbound resource clicks and file downloads; email-address redaction is enabled. Event and user data retention are both set to 14 months.
+Limited analytics is on by default under the UK statistical purposes exception (PECR as amended by the Data (Use and Access) Act 2025). A notice on the first visit explains it, and visitors can turn it off at any time; once turned off, the Google Analytics script is not requested and no analytics data is sent. Advertising storage, advertising personalisation and Google Signals remain disabled. The stream measures page views, scrolling, outbound resource clicks and file downloads; email-address redaction is enabled. Event and user data retention are both set to 14 months.
 
-The visitor's choice is stored locally in their browser under `sda_analytics_consent` for six months, after which the site asks again. Analytics cookies are configured for a maximum lifetime of one year and may be renewed on a return visit. The page provides permanent controls to review or withdraw consent. Withdrawal changes consent to denied, removes accessible `_ga` cookies and reloads the page without Google Analytics.
+The visitor's choice is stored locally in their browser under `sda_analytics_consent` for six months, after which the site asks again. Analytics cookies are configured for a maximum lifetime of one year and may be renewed on a return visit. The page provides permanent controls to review the choice or turn analytics off. Turning it off changes consent to denied, removes accessible `_ga` cookies and reloads the page without Google Analytics.
 
 ## Files
 
